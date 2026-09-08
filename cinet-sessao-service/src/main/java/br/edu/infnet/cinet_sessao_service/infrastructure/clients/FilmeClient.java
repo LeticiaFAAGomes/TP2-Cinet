@@ -12,7 +12,7 @@ public class FilmeClient {
 
     public FilmeClient(RestClient.Builder builder) {
         this.restClient = builder
-                .baseUrl("http://localhost:8081")
+                .baseUrl("http://cinet-filme-service:8081")
                 .build();
     }
 
