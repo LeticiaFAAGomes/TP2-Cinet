@@ -1,6 +1,7 @@
 package br.edu.infnet.cinet_sessao_service.application.service;
 
 import br.edu.infnet.cinet_sessao_service.domain.models.Sessao;
+import br.edu.infnet.cinet_sessao_service.infrastructure.clients.FilmeClient;
 import br.edu.infnet.cinet_sessao_service.infrastructure.entities.SessaoEntity;
 import br.edu.infnet.cinet_sessao_service.infrastructure.repositories.SessaoRepository;
 import br.edu.infnet.cinet_sessao_service.interfaces.dtos.SessaoRequestDTO;
@@ -17,16 +18,24 @@ public class SessaoService {
     @Autowired
     private SessaoRepository repository;
 
+    @Autowired
+    private FilmeClient filmeClient;
+
     public List<SessaoResponseDTO> listar() {
         return repository.findAll().stream().map(SessaoEntity::toDomain).map(SessaoResponseDTO::fromDomain).toList();
     }
     public SessaoResponseDTO criar(SessaoRequestDTO dto) {
+        if (!filmeClient.existe(dto.getFilmeId())) {
+            throw new RuntimeException("Filme não encontrado.");
+        }
+
         Sessao sessao = dto.toDomain();
         SessaoEntity entity = new SessaoEntity(sessao);
         SessaoEntity salvo = repository.save(entity);
 
         return SessaoResponseDTO.fromDomain(salvo.toDomain());
     }
+
     public SessaoResponseDTO buscarPorId(UUID id) {
         SessaoEntity entity = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Sessao não encontrada."));

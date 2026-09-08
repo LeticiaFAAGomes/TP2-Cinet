@@ -1,6 +1,7 @@
 package br.edu.infnet.cinet_sessao_service.interfaces.controllers;
 
 import br.edu.infnet.cinet_sessao_service.application.service.SessaoService;
+import br.edu.infnet.cinet_sessao_service.infrastructure.clients.FilmeClient;
 import br.edu.infnet.cinet_sessao_service.interfaces.dtos.SessaoRequestDTO;
 import br.edu.infnet.cinet_sessao_service.interfaces.dtos.SessaoResponseDTO;
 import jakarta.validation.Valid;
