@@ -10,6 +10,8 @@ services:
       - "5432:5432"
     volumes:
       - postgres_filmes_data:/var/lib/postgresql/data
+    networks:
+      - cinet-network
 
   postgres-sessoes:
     image: postgres:16
@@ -22,7 +24,34 @@ services:
       - "5433:5432"
     volumes:
       - postgres_sessoes_data:/var/lib/postgresql/data
+    networks:
+      - cinet-network
+
+  cinet-filme-service:
+    image: cinet-filme-service
+    container_name: cinet-filme-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres-filmes
+    networks:
+      - cinet-network
+
+  cinet-sessao-service:
+    image: cinet-sessao-service
+    container_name: cinet-sessao-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - postgres-sessoes
+      - cinet-filme-service
+    networks:
+      - cinet-network
 
 volumes:
   postgres_filmes_data:
   postgres_sessoes_data:
+
+networks:
+  cinet-network:
+    driver: bridge
