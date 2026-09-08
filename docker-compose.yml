@@ -1,7 +1,7 @@
 services:
-  postgres:
+  postgres-filmes:
     image: postgres:16
-    container_name: cinet-postgres
+    container_name: cinet-postgres-filmes
     environment:
       POSTGRES_DB: cinet_filmes
       POSTGRES_USER: postgres
@@ -9,7 +9,20 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_filmes_data:/var/lib/postgresql/data
+
+  postgres-sessoes:
+    image: postgres:16
+    container_name: cinet-postgres-sessoes
+    environment:
+      POSTGRES_DB: cinet_sessoes
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_sessoes_data:/var/lib/postgresql/data
 
 volumes:
-  postgres_data:
+  postgres_filmes_data:
+  postgres_sessoes_data:

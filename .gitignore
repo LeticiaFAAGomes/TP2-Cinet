@@ -1,3 +1,4 @@
 .idea/
 .env
 cinet-filme-service/src/main/resources/application-local.properties
+cinet-sessao-service/src/main/resources/application-local.properties
