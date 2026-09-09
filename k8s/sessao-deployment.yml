@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cinet-sessao-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cinet-sessao
+  template:
+    metadata:
+      labels:
+        app: cinet-sessao
+    spec:
+      containers:
+        - name: cinet-sessao-service
+          image: cinet-sessao-service:latest
+          ports:
+            - containerPort: 8082

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cinet-filme-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cinet-filme
+  template:
+    metadata:
+      labels:
+        app: cinet-filme
+    spec:
+      containers:
+        - name: cinet-filme-service
+          image: cinet-filme-service:latest
+          ports:
+            - containerPort: 8081
