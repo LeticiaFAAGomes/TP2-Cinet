@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: cinet-filme-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: cinet-filme
